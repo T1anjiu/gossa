@@ -3,6 +3,8 @@ package main
 import (
 	"archive/zip"
 	"compress/gzip"
+	"crypto/md5"
+	"crypto/sha1"
 	"crypto/sha256"
 	"crypto/sha512"
 	_ "embed"
@@ -254,6 +256,10 @@ func rpc(w http.ResponseWriter, r *http.Request) {
 		check(err)
 		var hash hash.Hash
 		switch rpc.Args[1] {
+		case "md5":
+			hash = md5.New()
+		case "sha1":
+			hash = sha1.New()
 		case "sha256":
 			hash = sha256.New()
 		case "sha512":
